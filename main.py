@@ -17,6 +17,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from pprint import pprint as pp
 from weather import query_api
 from quote import query_stock
+from quote import query_stock_urllib3
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -48,7 +49,7 @@ def result():
     error = None
     select = request.form.get('comp_select')
     #resp = query_api(select)
-    resp = query_stock(select)
+    resp = query_stock_urllib3(select)
     #print(resp)
     pp(resp)
     if resp:

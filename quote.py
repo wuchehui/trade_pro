@@ -12,11 +12,9 @@ import math
 
 ZACKS_API_URL = ('https://www.zacks.com/stock/quote/{}')
 
-def parse_content(symbol, res):
-    if res != None:
-        #print(res.status_code)
-        #print(res.text)
-        content = BeautifulSoup(res.content, 'lxml')
+def parse_content(symbol, raw_html):
+    if raw_html != None:
+        content = BeautifulSoup(raw_html, 'lxml')
         rank_box = content.body.find('div', attrs={'class':'zr_rankbox'})
         #print(rank_box.prettify())
         rank_view = rank_box.find(class_='rank_view')
@@ -93,8 +91,14 @@ def query_stock_urllib3(symbol):
         res = None
     else:
         status = 200
-        
-    d = parse_content(symbol, res)
+    #process html
+    if res != None:
+        raw_html = res.data.decode('utf-8')
+        print(res.status)
+        #print(raw_html)
+    else:
+        raw_html = None
+    d = parse_content(symbol, raw_html)
     return d
         
     
@@ -119,8 +123,14 @@ def query_stock(symbol):
     else:
         status = 200
         #print('Success!')
-        
-    d = parse_content(symbol, res)
+    #process html
+    if res != None:
+        raw_html = res.content
+        #print(res.status_code)
+        #print(raw_html)
+    else:
+        raw_html = None
+    d = parse_content(symbol, raw_html)
     return d
     
 
