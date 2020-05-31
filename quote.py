@@ -12,7 +12,7 @@ import math
 
 ZACKS_API_URL = ('https://www.zacks.com/stock/quote/{}')
 
-def parse_content(res):
+def parse_content(symbol, res):
     if res != None:
         #print(res.status_code)
         #print(res.text)
@@ -94,7 +94,7 @@ def query_stock_urllib3(symbol):
     else:
         status = 200
         
-    d = parse_content(res)
+    d = parse_content(symbol, res)
     return d
         
     
@@ -120,7 +120,7 @@ def query_stock(symbol):
         status = 200
         #print('Success!')
         
-    d = parse_content(res)
+    d = parse_content(symbol, res)
     return d
     
 
