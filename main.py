@@ -49,7 +49,8 @@ def result():
     error = None
     select = request.form.get('comp_select')
     #resp = query_api(select)
-    resp = query_stock_urllib3(select)
+    resp = query_stock(select)
+    #resp = query_stock_urllib3(select)
     #print(resp)
     pp(resp)
     if resp:

@@ -90,11 +90,11 @@ def query_stock_urllib3(symbol):
         print("Other error occurred: %s" %(err))  # Python 3.6
         res = None
     else:
-        status = 200
+        status = res.status
     #process html
     if res != None:
         raw_html = res.data.decode('utf-8')
-        print(res.status)
+        print("Server response status: %d" %(res.status))
         #print(raw_html)
     else:
         raw_html = None
@@ -121,16 +121,18 @@ def query_stock(symbol):
         print("Other error occurred: %s" %(err))  # Python 3.6
         res = None
     else:
-        status = 200
-        #print('Success!')
+        status = res.status_code
     #process html
     if res != None:
         raw_html = res.content
-        #print(res.status_code)
-        #print(raw_html)
+        print("Server response status: %d" %(res.status_code))
+        print(raw_html)
     else:
         raw_html = None
     d = parse_content(symbol, raw_html)
     return d
     
-
+if __name__ == '__main__':
+    symbol = "AMD"
+    query_stock(symbol)
+    query_stock_urllib3(symbol)
